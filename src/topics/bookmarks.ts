@@ -74,6 +74,8 @@ export default function (Topics: tpc) {
         const uidData : uid_data[] = bookmarks.map(b => ({ uid: b.value, bookmark: parseInt(b.score, 10) }))
             .filter(data => data.bookmark >= minIndex);
 
+        // The next line calls a function in a module that has not been updated to TS yet
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         await async.eachLimit(uidData, 50, async (data) => {
             let bookmark : number = Math.min(data.bookmark, maxIndex);
 

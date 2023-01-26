@@ -61,6 +61,8 @@ function default_1(Topics) {
             const bookmarks = yield Topics.getTopicBookmarks(tid);
             const uidData = bookmarks.map(b => ({ uid: b.value, bookmark: parseInt(b.score, 10) }))
                 .filter(data => data.bookmark >= minIndex);
+            // The next line calls a function in a module that has not been updated to TS yet
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             yield async_1.default.eachLimit(uidData, 50, (data) => __awaiter(this, void 0, void 0, function* () {
                 let bookmark = Math.min(data.bookmark, maxIndex);
                 postIndices.forEach((i) => {
