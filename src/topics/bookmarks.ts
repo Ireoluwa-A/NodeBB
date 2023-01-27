@@ -27,7 +27,7 @@ interface tpc{
     getPostCount(tid: string) : Promise<number>;
 }
 
-export default function (Topics: tpc) {
+module.exports = function (Topics: tpc) {
     Topics.getUserBookmark = async function (tid, uid) {
         if (parseInt(uid, 10) <= 0) {
             return null;
