@@ -1,5 +1,3 @@
-
-
 import async from 'async';
 
 import db from '../database';
