@@ -20,11 +20,26 @@ Career.register = async (req, res) => {
             num_programming_languages: userData.num_programming_languages,
             num_past_internships: userData.num_past_internships,
         };
+        
+        // Currently locally running endpoint
+        // Replace with deployed microservice endpoint
+        const endpoint = `http://0.0.0.0:8080/predict_student/`;
+        const config = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userCareerData)
+        };
+        try {
+            const fetchResponse = await fetch(endpoint, config);
+            const data = await fetchResponse.json();
+        } catch (e) {
+            console.log(e)
+        } 
 
-        // Insert call to APi microservice
-        userCareerData.prediction = Math.round(Math.random()); // TODO: Change this line to do call and retrieve actual candidate success prediction from the model instead of using a random number
-        console.log("predicted");
-
+        userCareerData.prediction = data.good_employee
         await user.setCareerData(req.uid, userCareerData);
         db.sortedSetAdd('users:career', req.uid, req.uid);
         res.json({});
