@@ -35,7 +35,6 @@ define('forum/career', [
                 }
 
                 registerBtn.addClass('disabled');
-
                 registerBtn.parents('form').ajaxSubmit({
                     headers: {
                         'x-csrf-token': config.csrf_token,

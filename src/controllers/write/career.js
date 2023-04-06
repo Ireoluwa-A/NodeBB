@@ -8,6 +8,7 @@ const Career = module.exports;
 
 Career.register = async (req, res) => {
     const userData = req.body;
+    console.log("inside register function")
     try {
         const userCareerData = {
             student_id: userData.student_id,
@@ -20,7 +21,9 @@ Career.register = async (req, res) => {
             num_past_internships: userData.num_past_internships,
         };
 
+        // Insert call to APi microservice
         userCareerData.prediction = Math.round(Math.random()); // TODO: Change this line to do call and retrieve actual candidate success prediction from the model instead of using a random number
+        console.log("predicted");
 
         await user.setCareerData(req.uid, userCareerData);
         db.sortedSetAdd('users:career', req.uid, req.uid);

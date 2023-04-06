@@ -17,6 +17,7 @@ module.exports = function (User) {
     };
 
     User.setCareerData = async function (uid, data) {
+        console.log("Inserted into database");
         await db.setObject(`user:${uid}:career`, data);
         for (const [field, value] of Object.entries(data)) {
             plugins.hooks.fire('action:user.set', { uid, field, value, type: 'set' });
